@@ -30,7 +30,7 @@ class ApiClient {
 
     // Register Endpoint
     async register(userInfo) {
-        return await this.request( {endpoint: "/register", method: "GET", data: userInfo } )
+        return await this.request( {endpoint: "/register", method: "POST", data: userInfo } )
     }
 }
 
