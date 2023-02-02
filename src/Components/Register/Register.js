@@ -1,7 +1,8 @@
 import React, { useState } from "react";
+import apiClient from "../../services/apiClient";
 import "./Register.css";
 
-function Register() {
+const Register = function () {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -13,6 +14,13 @@ function Register() {
     
     if (password === confirmPassword) {
       console.log("Successful Registration!");
+      apiClient.register({
+        firstName,
+        lastName,
+        email,
+        password,
+        confirmPassword
+      })
     } else {
       console.error("Passwords do not match!");
     }
