@@ -25,7 +25,7 @@ class ApiClient {
 
     // Login Endpoint
     async login(userInfo) {
-        return await this.request( {endpoint: "user/login", method: "GET", data: userInfo } )
+        return await this.request( {endpoint: "user/login", method: "POST", data: userInfo } )
     }
 
     // Register Endpoint
