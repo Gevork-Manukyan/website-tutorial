@@ -9,19 +9,29 @@ const Register = function () {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const handleSubmit = (event) => {
+  const [status, setStatus] = useState(undefined)
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
     
     if (password === confirmPassword) {
       console.log("Successful Registration!");
-      apiClient.register({
+      const {data, error} = await apiClient.register({
         firstName,
         lastName,
         email,
         password,
         confirmPassword
       })
+
+      if (data !== null) {
+        setStatus(true)
+      } else if (error !== null) {
+        setStatus(false)
+      }
+
     } else {
+      setStatus(false)
       console.error("Passwords do not match!");
     }
   };
@@ -74,6 +84,15 @@ const Register = function () {
         value={confirmPassword}
         onChange={(event) => setConfirmPassword(event.target.value)}
       />
+      {status === true ?
+        <p>Successfully Registered!</p>
+        :
+        (status === false ?
+          <p>Failed to Register</p>
+          :
+          <></>
+        )
+      }
       <button type="submit" className="form-button">
         Register
       </button>

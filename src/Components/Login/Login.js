@@ -6,13 +6,21 @@ const Login = function () {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (event) => {
+  const [status, setStatus] = useState(undefined)
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
-    apiClient.login({
+    const {data, error} = await apiClient.login({
       email,
       password
     })
+
+    if (data !== null) {
+      setStatus(true)
+    } else if (error !== null) {
+      setStatus(false)
+    }
   };
 
   return (
@@ -36,6 +44,15 @@ const Login = function () {
         value={password}
         onChange={(event) => setPassword(event.target.value)}
       />
+      {status === true ?
+        <p>Successfully Logged In!</p>
+        :
+        (status === false ?
+          <p>Failed to Log In</p>
+          :
+          <></>
+        )
+      }
       <button type="submit" className="form-button">
         Login
       </button>
